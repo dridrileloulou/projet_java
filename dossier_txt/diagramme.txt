@@ -1,24 +1,42 @@
 Classe,Attributs (exemples),Méthodes (exemples)
-Jeu,- joueurs: Liste<Joueur> 
+
+Jeu,
+- joueurs: Liste<Joueur> 
 - plateau: Plateau 
-- tourActuel: int,- demarrerPartie() 
-- jouerTour(Joueur j) 
-- verifierFinPartie()
-Joueur,- main: Liste<Carte> 
+- tourActuel: int,
+-- demarrerPartie() 
+-- jouerTour(Joueur j) 
+-- verifierFinPartie()
+
+Joueur,
+- main: Liste<Carte> 
 - score: int 
-- nom: String,- piocherCarte(Paquet p) 
-- jouerCarte(Carte c, Section s) 
-- ajouterScore(int points)
-Plateau,- sections: Liste<Section>,- getSection(int index) 
-- verifierControleSections()
-Section,- cartesJoueur1: Liste<Carte> 
+- nom: String,
+-- piocherCarte(Paquet p) 
+-- jouerCarte(Carte c, Section s) 
+-- ajouterScore(int points)
+
+Plateau,
+- sections: Liste<Section>,
+-- getSection(int index) 
+-- verifierControleSections()
+
+Section,
+- cartesJoueur1: Liste<Carte> 
 - cartesJoueur2: Liste<Carte> 
-- pierre: boolean,- ajouterCarte(Carte c, Joueur j) 
-- calculerForce() 
-- placerPierre()
-Carte,- valeur: int 
+- pierre: boolean,
+-- ajouterCarte(Carte c, Joueur j) 
+-- calculerForce() 
+-- placerPierre()
+
+Carte,
+- valeur: int 
 - couleur: String 
-- type: String (tactique/numéro),- getValeur() 
-- getCouleur()
-Paquet,- cartes: Liste<Carte>,- melanger() 
-- piocher()
+- type: String (tactique/numéro),
+-- getValeur() 
+-- getCouleur()
+
+Paquet,
+- cartes: Liste<Carte>,
+-- melanger() 
+-- piocher()
