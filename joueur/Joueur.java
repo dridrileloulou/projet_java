@@ -66,6 +66,10 @@ public class Joueur {
 
     }
 
+    public void ajouter_score(int point){
+        this.score += point;
+    }
+
     
 
 
