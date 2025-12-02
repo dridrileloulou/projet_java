@@ -2,20 +2,17 @@ package paquet;
 import carte.Carte;
 
 public class Paquet {
-    private List<Carte> cartes;
+    private Carte[] cartes;
     
     public Paquet() {
-        this.cartes = new ArrayList<Carte>();
+        this.cartes = new Cartes[];
     }
 
     public void melanger() {
-        Collections.shuffle(cartes);
+        //à remplir
     }
 
-    public Carte piocherCarte() {
-        if (cartes.isEmpty()) {
-            return null; // ou gérer l'erreur selon le besoin
-        }
-        return cartes.remove(cartes.size() - 1);
+    public Carte piocher() {
+        return cartes[cartes.length - 1];
     }
 }
