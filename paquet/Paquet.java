@@ -15,30 +15,30 @@ public class Paquet {
 
     private static final Random random = new Random();
 
-    private int taille_pioche(Carte[] cartes){
-        for(int i = 0; i<cartes.length;i++){
-            if(cartes[i] == null )
-                return i+1;
+    private int taille_pioche(){
+        for(int i = 0; i<this.cartes.length;i++){
+            if(this.cartes[i] == null )
+                return i;
         }
         return 0;
     }
 
-    public void melanger(Carte[] cartes) {
-        for (int i = taille_pioche(cartes)- 1; i > 0; i--) {
+    public void melanger() {
+        for (int i = this.taille_pioche()- 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
             
-            Carte temp = cartes[i];
-            cartes[i] = cartes[j];
-            cartes[j] = temp;
+            Carte temp = this.cartes[i];
+            this.cartes[i] = this.cartes[j];
+            this.cartes[j] = temp;
         }
     }
 
 
 
-    public Carte piocher(Carte[] cartes) {
-        int taille =  taille_pioche(cartes);
-        Carte carte_piochee = cartes[taille-1];
-        cartes[taille] = null;
+    public Carte piocher() {
+        int taille =  this.taille_pioche();
+        Carte carte_piochee = this.cartes[taille-1];
+        cartes[taille-1] = null;
         return carte_piochee;
     }
 }
