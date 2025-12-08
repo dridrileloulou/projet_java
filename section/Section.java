@@ -1,4 +1,5 @@
 package section;
+import java.util.Arrays;
 import carte.Carte;
 import joueur.Joueur;
 
@@ -21,7 +22,7 @@ public class Section{
 
     public void ajouter_carte(Carte c, Joueur j){
         if (j.getNum_joueur() == 1){
-            for (int i = 0; i<cartes_j1.length; i++){
+            for (int i = 0; i<3; i++){
                 if (cartes_j1[i] == null){
                     cartes_j1[i] = c;
                     return;
@@ -30,7 +31,7 @@ public class Section{
             System.out.println("Plus de place");
         }
         else if (j.getNum_joueur() == 2){
-            for (int i = 0; i<cartes_j2.length; i++){
+            for (int i = 0; i<3; i++){
                 if (cartes_j2[i] == null){
                     cartes_j2[i] = c;
                     return;
@@ -44,13 +45,85 @@ public class Section{
     }
 
     public int calculer_force(){
+
         int[] v1 = new int[3];
         String[] c1 = new String[3];
-        for (int i=0; i<cartes_j1.length; i++){
+        int[] v2 = new int[3];
+        String[] c2 = new String[3];
+        int score_j1 = 0;
+        int score_j2 = 0;
+         
+        for (int i=0; i<3; i++){
             if (cartes_j1[i] == null){
                 return 0;
             }
             v1[i] = cartes_j1[i].get_valeur();
+            c1[i] = cartes_j1[i].get_couleur();
+        }
+        for (int i=0; i<3; i++){
+            if (cartes_j2[i] == null){
+                return 0;
+            }
+            v2[i] = cartes_j2[i].get_valeur();
+            c2[i] = cartes_j2[i].get_couleur();
+        }
+        Arrays.sort(v1);
+        Arrays.sort(v2);
+
+        //vérifier les combos (joueur 1)
+        //suite couleur
+        if(c1[0].equalsIgnoreCase(c1[1]) &&  c1[0].equalsIgnoreCase(c1[2])){
+            if(v1[1] == v1[0]+1 && v1[2] == v1[0]+2){
+                score_j1 = 400;
+            }
+        }
+        //brelan
+        else if(v1[0] == v1[1] && v1[0] == v1[2]){
+            score_j1 = 300;
+        }
+        //couleur
+        else if(c1[0].equalsIgnoreCase(c1[1]) &&  c1[0].equalsIgnoreCase(c1[2])){
+            score_j1 = 200;
+        }
+        //suite
+        else if(v1[1] == v1[0]+1 && v1[2] == v1[0]+2){
+            score_j1 = 100;
+        }
+        //somme
+        score_j1 = score_j1 + v1[0] + v1[1] + v1[2];
+
+
+        //vérifier les combos (joueur 2)
+        //suite couleur
+        if(c2[0].equalsIgnoreCase(c2[1]) &&  c2[0].equalsIgnoreCase(c2[2])){
+            if(v2[1] == v2[0]+1 && v2[2] == v2[0]+2){
+                score_j2 = 400;
+            }
+        }
+        //brelan
+        else if(v2[0] == v2[1] && v2[0] == v2[2]){
+            score_j2 = 300;
+        }
+        //couleur
+        else if(c2[0].equalsIgnoreCase(c2[1]) &&  c2[0].equalsIgnoreCase(c2[2])){
+            score_j2 = 200;
+        }
+        //suite
+        else if(v2[1] == v2[0]+1 && v2[2] == v2[0]+2){
+            score_j2 = 100;
+        }
+        //somme
+        score_j2 = score_j2 + v2[0] + v2[1] + v2[2];
+
+        //regarder qui a gagné
+        if(score_j1 > score_j2){
+            return 1;
+        }
+        else if(score_j1 < score_j2){
+            return 2;
+        }
+        else{
+            return 3;
         }
     }
 }
