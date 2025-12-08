@@ -1,7 +1,7 @@
-package joueur;
-import carte.Carte;
-import paquet.Paquet;
-import section.Section;
+package com.shottentotten.model;
+import com.shottentotten.model.Carte;
+import com.shottentotten.model.Paquet;
+import com.shottentotten.model.Section;
 
 public class Joueur {
     private int score;

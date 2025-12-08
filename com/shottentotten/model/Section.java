@@ -1,7 +1,7 @@
-package section;
+package com.shottentotten.model;
 import java.util.Arrays;
-import carte.Carte;
-import joueur.Joueur;
+import com.shottentotten.model.Carte;
+import com.shottentotten.model.Joueur;
 
 public class Section{
     private Boolean borne;
@@ -14,7 +14,7 @@ public class Section{
         this.cartes_j2 = new Carte[3];
     }
 
-    public Section(Bool borne, Carte[] cartes_j1, Carte[] cartes_j2){
+    public Section(Boolean borne, Carte[] cartes_j1, Carte[] cartes_j2){
         this.borne = borne;
         this.cartes_j1 = cartes_j1;
         this.cartes_j2 = cartes_j2;

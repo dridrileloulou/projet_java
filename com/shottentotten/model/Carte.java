@@ -1,4 +1,4 @@
-package carte;
+package com.shottentotten.model;
 
 public class Carte{
 

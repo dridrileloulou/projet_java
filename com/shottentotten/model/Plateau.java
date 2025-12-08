@@ -1,6 +1,6 @@
-package plateau;
-import section.Section;
-import joueur.Joueur;
+package com.shottentotten.model;
+import com.shottentotten.model.Section;
+import com.shottentotten.model.Joueur;
 
 public class Plateau{
     private Section[] sections;

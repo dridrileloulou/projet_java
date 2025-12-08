@@ -1,9 +1,29 @@
-package paquet;
-import carte.Carte;
+package com.shottentotten.model;
+import com.shottentotten.model.Carte;
 import java.util.Random;
 
 public class Paquet {
     private Carte[] cartes;
+    private static final Random random = new Random();
+
+
+    public Paquet(){
+        this.cartes = new Carte[54];
+        String[] couleurs = {
+            "Rouge",
+            "Bleu",
+            "Vert",
+            "Jaune",
+            "Orange",
+            "Violet"
+        };
+        for (int i=0; i<6; i++){
+            for (int j=0; j<9; j++){
+                cartes[9*i + j] = new Carte(j+1, 0, couleurs[i]);
+            }
+        }
+        this.melanger();
+    }
     
     public Carte[] getCartes() {
         return cartes;
@@ -13,17 +33,19 @@ public class Paquet {
         this.cartes = cartes;
     }
 
-    private static final Random random = new Random();
-
     private int taille_pioche(){
         for(int i = 0; i<this.cartes.length;i++){
             if(this.cartes[i] == null )
                 return i;
         }
-        return 0;
+        return this.cartes.length;
     }
 
     public void melanger() {
+        t = this.taille_pioche();
+        if (t == 0 || t == 1){
+            return;
+        }
         for (int i = this.taille_pioche()- 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
             
