@@ -4,14 +4,14 @@ import carte.Carte;
 import joueur.Joueur;
 
 public class Section{
-    Bool borne;
-    Carte[] = cartes_j1;
-    Carte[] = cartes_j2;
+    private Boolean borne;
+    private Carte[] cartes_j1;
+    private Carte[] cartes_j2;
 
     public Section(){
         this.borne = true;
-        this.cartes_j1 = Carte[1];
-        this.cartes_j2 = Carte[1];
+        this.cartes_j1 = new Carte[3];
+        this.cartes_j2 = new Carte[3];
     }
 
     public Section(Bool borne, Carte[] cartes_j1, Carte[] cartes_j2){
@@ -124,6 +124,18 @@ public class Section{
         }
         else{
             return 3;
+        }
+    }
+
+    public void placer_borne(int i){
+        if (i == 1){
+            this.borne = false;
+        }
+        else if (i == 2){
+            this.borne = false;
+        }
+        else {
+            System.out.println("Veuillez appeler la fonction placer_borne avec 1 ou 2 en argument");
         }
     }
 }

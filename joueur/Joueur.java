@@ -6,14 +6,14 @@ import section.Section;
 public class Joueur {
     private int score;
     private String nom;
-    private Carte main[] = new Carte[6];
+    private Carte[] main;
     private int num_joueur;
 
-    public Joueur(String nom) {
+    public Joueur(String nom, int num) {
         this.nom = nom;
         this.score = 0;
         this.main = new Carte[6];
-        this.num_joueur = 0;
+        this.num_joueur = num;
     }
     
     public int getScore() {
@@ -44,8 +44,8 @@ public class Joueur {
         this.num_joueur = num_joueur;
     }   
 
-    public void piocherCarte(Paquet pioche[]) {
-        Carte cartePiochee = pioche[0].piocherCarte();
+    public void piocherCarte(Paquet pioche) {
+        Carte cartePiochee = pioche.piocher();
         for (int i = 0; i < main.length; i++) {
             if (main[i] == null) {
                 main[i] = cartePiochee;

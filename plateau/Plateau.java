@@ -2,8 +2,8 @@ package plateau;
 import section.Section;
 import joueur.Joueur;
 
-public class Plateau(){
-    private Section[9] sections;
+public class Plateau{
+    private Section[] sections;
     
     public Plateau(){
         sections = new Section[9];
