@@ -41,31 +41,33 @@ public class Jeu {
 
         joueurs[0].setMain(main1);
         joueurs[1].setMain(main2);
+
+        while(this.verifierFinPartie())
     }
 
-    public void verifierFinPartie() {
+    public int verifierFinPartie() {
         int result = this.plateau.verifierControleSections();
 
         switch (result) {
             case 51:  // Joueur 1 gagne 5 points
                 this.joueurs[0].ajouterScore(5);
-                break;
+                return 1;
 
             case 52:  // Joueur 2 gagne 5 points
                 this.joueurs[1].ajouterScore(5);
-                break;
+                return 2;
 
             case 31:  // Joueur 1 gagne 3 points
                 this.joueurs[0].ajouterScore(3);
-                break;
+                return 1;
 
             case 32:  // Joueur 2 gagne 3 points
                 this.joueurs[1].ajouterScore(3);
-                break;
+                return 2;
 
             default:
                 // rien, la partie continue
-                break;
+                return 0;
         }
     }
 
