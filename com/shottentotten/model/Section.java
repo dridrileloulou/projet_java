@@ -117,9 +117,11 @@ public class Section{
 
         //regarder qui a gagné
         if(score_j1 > score_j2){
+            this.placer_borne(1);
             return 1;
         }
         else if(score_j1 < score_j2){
+            this.placer_borne(2);
             return 2;
         }
         else{

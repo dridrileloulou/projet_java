@@ -30,17 +30,17 @@ public class Plateau{
                 compteur_j2_1 += 1;
         }
         if(compteur_j1_1 >= 5 )
-            return 1;
+            return 51;
         if(compteur_j2_1 >= 5 )
-            return 2;
+            return 52;
 
         int compteur_j1_2 = 0;
         int compteur_j2_2 = 0;
         for(int i = 0; i<9;i++){
             if(compteur_j1_2 == 3)
-                return 1;
+                return 31;
             if(compteur_j2_2 == 3)
-                return 2;
+                return 32;
             switch (tab_section[i]){
                 case 0:
                     compteur_j1_2 = 0;

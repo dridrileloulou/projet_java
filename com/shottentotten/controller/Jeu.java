@@ -13,10 +13,13 @@ public class Jeu{
         this.joueurs = new Joueur[2];
         pioche_clan = new Paquet();
         for (int i=0; i<2; i++){
-            joueurs[i] = new Joueur("Joueur " + (i+1), i);
+            joueurs[i] = new Joueur("Joueur" + (i+1), i);
         }
         this.TourActuel = 0;
+    }
 
+    public void demarrerPartie(){
+        pioche_clan = new Paquet();
         main1 = new Carte[6];
         main2 = new Carte[6];
         for (int i=0; i<6; i++){
@@ -25,5 +28,21 @@ public class Jeu{
         }
         joueurs[0].setMain(main1);
         joueurs[1].setMain(main2);
+    }
+
+    public void verifierFinPartie(){
+        result = this.plateau.verifierControleSections();
+        if (result == 51){
+            this.joueurs[0].ajouter_score(5);
+        }
+        else if (result == 52){
+            this.joueurs[1].ajouter_score(5);
+        }
+        else if (result == 31){
+            this.joueurs[0].ajouter_score(3);
+        }
+        else if (result == 32){
+            this.joueurs[1].ajouter_score(3);
+        }
     }
 }
