@@ -54,10 +54,10 @@ public class Joueur {
         }    
     }
 
-    public void jouer_carte(Carte carteJouee, Section s){
+    public void jouerCarte(Carte carteJouee, Section s){
         for (int i = 0; i < main.length; i++) {
             if (main[i] == carteJouee) {
-                s.ajouterCarte(carteJouee);
+                s.ajouterCarte(carteJouee, this);
                 main[i] = null;
                 break;
             }
@@ -66,7 +66,7 @@ public class Joueur {
 
     }
 
-    public void ajouter_score(int point){
+    public void ajouterScore(int point){
         this.score += point;
     }
 

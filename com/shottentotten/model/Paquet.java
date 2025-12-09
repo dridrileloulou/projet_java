@@ -42,7 +42,7 @@ public class Paquet {
     }
 
     public void melanger() {
-        t = this.taille_pioche();
+        int t = this.taille_pioche();
         if (t == 0 || t == 1){
             return;
         }
@@ -58,9 +58,15 @@ public class Paquet {
 
 
     public Carte piocher() {
-        int taille =  this.taille_pioche();
+        int taille = this.taille_pioche();
+        if (taille == 0) return null; // pas de cartes à piocher
         Carte carte_piochee = this.cartes[taille-1];
         cartes[taille-1] = null;
         return carte_piochee;
     }
+
+    public boolean estVide() {
+        return this.taille_pioche() == 0;
+    }
+
 }

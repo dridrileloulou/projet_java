@@ -20,7 +20,7 @@ public class Section{
         this.cartes_j2 = cartes_j2;
     }
 
-    public void ajouter_carte(Carte c, Joueur j){
+    public void ajouterCarte(Carte c, Joueur j){
         if (j.getNum_joueur() == 1){
             for (int i = 0; i<3; i++){
                 if (cartes_j1[i] == null){
@@ -125,7 +125,7 @@ public class Section{
             return 2;
         }
         else{
-            return 3;
+            return 0;
         }
     }
 

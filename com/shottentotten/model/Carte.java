@@ -25,4 +25,9 @@ public class Carte{
     public String get_couleur(){
         return couleur;
     }
+
+    @Override
+    public String toString() {
+        return valeur + " " + couleur + " (" + type + ")";
+    }
 }
