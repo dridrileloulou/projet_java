@@ -30,7 +30,6 @@ public class Jeu {
         this.joueur1IA = joueur1IA;
         this.joueur2IA = joueur2IA;
         
-        // Créer les joueurs avec les bons noms
         joueurs[0] = new Joueur(joueur1IA ? "IA 1" : "Joueur 1", 1);  // Joueur humain/IA 1 = Joueur 1
         joueurs[1] = new Joueur(joueur2IA ? "IA 2" : "Joueur 2", 2);  // Joueur humain/IA 2 = Joueur 2
         
@@ -58,8 +57,6 @@ public class Jeu {
         while ((resultat = this.verifierFinPartie()) == 0) {
             this.jouerTour(this.joueurs[tourActuel]);
         }
-        
-        // Annoncer le vainqueur
         this.annoncerVainqueur(resultat);
     }
 
@@ -71,7 +68,6 @@ public class Jeu {
             case 31: this.joueurs[0].ajouterScore(3); return 13; // 1 = joueur 1, 3 = points
             case 32: this.joueurs[1].ajouterScore(3); return 23; // 2 = joueur 2, 3 = points
             default:
-                // Si aucune victoire immédiate, vérifier si la pioche et les mains sont vides -> fin de partie
                 boolean mainsVides = true;
                 for (Joueur pj : this.joueurs) {
                     Carte[] m = pj.getMain();
@@ -80,8 +76,6 @@ public class Jeu {
                 }
 
                 if (this.piocheClan.estVide() && mainsVides) {
-                    // Pioche et mains vides : recompute l'état des sections et attribue
-                    // les points selon l'encodage retourné par plateau.verifierControleSections().
                     if (result >= 10 && result < 20) {
                         int nb = result - 10;
                         this.joueurs[0].ajouterScore(nb);
@@ -101,7 +95,6 @@ public class Jeu {
     }
 
     public void jouerTour(Joueur j) {
-        // Header + plateau + main handled by view
         view.afficherTourHeader(j.getNom());
         view.afficherPlateau(this.plateau);
         view.afficherMainTable(j);
@@ -115,7 +108,7 @@ public class Jeu {
         
         if (estIA) {
             System.out.println("\n[" + j.getNom() + " réfléchit...]");
-            try { Thread.sleep(1000); } catch (InterruptedException e) {} // Pause pour lisibilité
+            try { Thread.sleep(1000); } catch (InterruptedException e) {} //Pause pour mieux lire 
 
             indexCarte = Ai.choisirCarte(j);
             indexSection = Ai.choisirSection(this.plateau, j.getNum_joueur());
@@ -127,7 +120,6 @@ public class Jeu {
 
             System.out.println("[" + j.getNom() + " joue la carte " + indexCarte + " en section " + indexSection + "]");
         } else {
-            // Sinon demander au joueur humain
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 System.out.print("Choisissez la carte à jouer (index 0 à 5) : ");
