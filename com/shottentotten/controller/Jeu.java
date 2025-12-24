@@ -20,11 +20,7 @@ public class Jeu {
     private boolean joueur2IA; // true si le joueur 2 est IA
 
     public Jeu() {
-        this(false, false); // Par défaut, mode 1v1
-    }
-
-    public Jeu(boolean modeIA) {
-        this(false, modeIA); // Ancien constructeur pour compatibilité
+        this(false, false); 
     }
 
     public Jeu(boolean joueur1IA, boolean joueur2IA) {
@@ -84,7 +80,8 @@ public class Jeu {
                 }
 
                 if (this.piocheClan.estVide() && mainsVides) {
-                    // Partie terminée : result peut être 10+count (J1 lead) ou 20+count (J2 lead) or 0 (tie)
+                    // Pioche et mains vides : recompute l'état des sections et attribue
+                    // les points selon l'encodage retourné par plateau.verifierControleSections().
                     if (result >= 10 && result < 20) {
                         int nb = result - 10;
                         this.joueurs[0].ajouterScore(nb);
@@ -94,7 +91,7 @@ public class Jeu {
                         this.joueurs[1].ajouterScore(nb);
                         return result;
                     } else {
-                        // Tie overall — return special code 30 to indicate draw
+                        // Match nul
                         return 30;
                     }
                 }
@@ -130,7 +127,7 @@ public class Jeu {
 
             System.out.println("[" + j.getNom() + " joue la carte " + indexCarte + " en section " + indexSection + "]");
         } else {
-            // Sinon, demander au joueur humain
+            // Sinon demander au joueur humain
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 System.out.print("Choisissez la carte à jouer (index 0 à 5) : ");
@@ -189,9 +186,7 @@ public class Jeu {
     }
 
     public void annoncerVainqueur(int resultat) {
-        // Delegate display to view
         view.annoncerVainqueur(resultat, this.joueurs, this.plateau);
     }
     
-    // Display helper methods moved to com.shottentotten.view.view
 }

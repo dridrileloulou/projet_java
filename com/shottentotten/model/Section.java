@@ -7,17 +7,20 @@ public class Section{
     private Boolean borne;
     private Carte[] cartes_j1;
     private Carte[] cartes_j2;
+    private int premierComplete; // 0 = aucun, 1 = j1, 2 = j2
 
     public Section(){
         this.borne = true;
         this.cartes_j1 = new Carte[3];
         this.cartes_j2 = new Carte[3];
+        this.premierComplete = 0;
     }
 
     public Section(Boolean borne, Carte[] cartes_j1, Carte[] cartes_j2){
         this.borne = borne;
         this.cartes_j1 = cartes_j1;
         this.cartes_j2 = cartes_j2;
+        this.premierComplete = 0;
     }
 
     public Boolean getBorne(){
@@ -37,6 +40,9 @@ public class Section{
             for (int i = 0; i<3; i++){
                 if (cartes_j1[i] == null){
                     cartes_j1[i] = c;
+                    boolean complet = true;
+                    for (int k = 0; k < 3; k++) { if (cartes_j1[k] == null) { complet = false; break; } }
+                    if (complet && this.premierComplete == 0) { this.premierComplete = 1; }
                     return;
                 }
             }
@@ -46,6 +52,9 @@ public class Section{
             for (int i = 0; i<3; i++){
                 if (cartes_j2[i] == null){
                     cartes_j2[i] = c;
+                    boolean complet = true;
+                    for (int k = 0; k < 3; k++) { if (cartes_j2[k] == null) { complet = false; break; } }
+                    if (complet && this.premierComplete == 0) { this.premierComplete = 2; }
                     return;
                 }
             }
@@ -137,7 +146,11 @@ public class Section{
             return 2;
         }
         else{
-            return 0;
+            if (this.premierComplete == 1) 
+                { this.placer_borne(1); return 1; }
+            else 
+                { this.placer_borne(2); return 2; }
+            
         }
     }
 

@@ -12,10 +12,6 @@ public class Ai {
 
     private static final Random RAND = new Random();
 
-    /**
-     * Choisit une carte aléatoirement parmi les cartes présentes dans la main.
-     * Retourne un index valide (0..main.length-1). Si aucune carte trouvée, retourne 0.
-     */
     public static int choisirCarte(Joueur joueur) {
         Carte[] main = joueur.getMain();
         List<Integer> indices = new ArrayList<>();
@@ -26,10 +22,6 @@ public class Ai {
         return indices.get(RAND.nextInt(indices.size()));
     }
 
-    /**
-     * Choisit aléatoirement une section disponible pour le joueur (numJoueur = 1 ou 2).
-     * Si aucune section n'est disponible, retourne 0.
-     */
     public static int choisirSection(Plateau plateau, int numJoueur) {
         List<Integer> disponibles = new ArrayList<>();
         for (int i = 0; i < 9; i++) {

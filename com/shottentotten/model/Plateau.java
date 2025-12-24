@@ -16,43 +16,60 @@ public class Plateau{
         return sections[index];
     }
 
-    public int verifierControleSections() {
-
-        int[] tab = new int[9];
-        for (int i = 0; i < 9; i++) {
-            tab[i] = sections[i].calculer_force();
+    public int verifierControleSections(){
+        int tab_section[] = new int[9];
+        for(int i = 0; i < 9; i++){
+            tab_section[i] = sections[i].calculer_force();
         }
-
-        // --- Victoire 5 sections ---
-        int j1 = 0, j2 = 0;
-        for (int r : tab) {
-            if (r == 1) j1++;
-            if (r == 2) j2++;
+        int compteur_j1_1 = 0;
+        int compteur_j2_1 = 0;
+        for(int i = 0; i<9;i++){
+            if(tab_section[i] == 1)
+                compteur_j1_1 += 1;
+            if(tab_section[i] == 2)
+                compteur_j2_1 += 1;
         }
+        if(compteur_j1_1 >= 5 )
+            return 51;
+        if(compteur_j2_1 >= 5 )
+            return 52;
 
-        if (j1 >= 5) return 51;
-        if (j2 >= 5) return 52;
-
-        // --- Victoire 3 alignées ---
-        int alignJ1 = 0, alignJ2 = 0;
-
-        for (int r : tab) {
-            if (r == 1) {
-                alignJ1++;
-                alignJ2 = 0;
-            } else if (r == 2) {
-                alignJ2++;
-                alignJ1 = 0;
-            } else {
-                alignJ1 = 0;
-                alignJ2 = 0;
+        int compteur_j1_2 = 0;
+        int compteur_j2_2 = 0;
+        for(int i = 0; i<9;i++){
+            if(compteur_j1_2 == 3)
+                return 31;
+            if(compteur_j2_2 == 3)
+                return 32;
+            switch (tab_section[i]){
+                case 0:
+                    compteur_j1_2 = 0;
+                    compteur_j2_2 = 0;
+                    break;
+                case 1:
+                    compteur_j1_1 +=1;
+                    compteur_j2_2 = 0;
+                    break;
+                case 2:
+                    compteur_j1_2 = 0;
+                    compteur_j2_2 += 1;
+                    break;
+                default : 
+                    compteur_j1_2 = 0;
+                    compteur_j2_2 = 0;
             }
-
-            if (alignJ1 == 3) return 31;
-            if (alignJ2 == 3) return 32;
         }
-
         return 0;
-    }
 
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Plateau{\n");
+        for(int i=0; i<sections.length; i++){
+            sb.append(" Section ").append(i).append(": ").append(sections[i].toString()).append("\n");
+        }
+        sb.append('}');
+        return sb.toString();
+    }
 }
