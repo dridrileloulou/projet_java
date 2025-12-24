@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Bienvenue dans ShottenTotten !");
         System.out.println("\nChoisissez le mode de jeu :");
-        System.out.println("1 - Joueur vs Joueur (1v1)");
-        System.out.println("2 - Joueur vs IA (1vIA)");
-        System.out.println("3 - IA vs IA (IAvsIA)");
+        System.out.println("1 - Joueur vs Joueur ");
+        System.out.println("2 - Joueur vs IA ");
+        System.out.println("3 - IA vs IA ");
         System.out.print("Votre choix (1, 2 ou 3) : ");
         
         Scanner scanner = new Scanner(System.in);
