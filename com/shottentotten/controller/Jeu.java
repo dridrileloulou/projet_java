@@ -43,8 +43,8 @@ public class Jeu {
         this.difficulte2 = difficulte2;
         
         // Créer les joueurs avec les bons noms
-        joueurs[0] = new Joueur(joueur1IA ? "IA 1" : "Joueur 1", 2);  // Joueur humain/IA 1 = Joueur 2
-        joueurs[1] = new Joueur(joueur2IA ? "IA 2" : "Joueur 2", 1);  // Joueur humain/IA 2 = Joueur 1
+        joueurs[0] = new Joueur(joueur1IA ? "IA 1" : "Joueur 1", 1);  // Joueur humain/IA 1 = Joueur 1
+        joueurs[1] = new Joueur(joueur2IA ? "IA 2" : "Joueur 2", 2);  // Joueur humain/IA 2 = Joueur 2
         
         this.tourActuel = 0;
     }
@@ -87,25 +87,30 @@ public class Jeu {
     }
 
     public void jouerTour(Joueur j) {
-        System.out.println("\n========== Tour de " + j.getNom() + " ==========");
+        System.out.println("\n" + "═".repeat(80));
+        System.out.println("║ 🎮 Tour de " + j.getNom() + " ".repeat(Math.max(0, 60 - j.getNom().length())) + "║");
+        System.out.println("═".repeat(80));
 
-        System.out.println("Plateau :");
-        System.out.println("Cartes joueur 1    ||   Borne   ||   Cartes joueur 2");
-        Carte[] cartes_j1 = new Carte[3];
-        Carte[] cartes_j2 = new Carte[3];
-        Boolean borne;
-        for (int i=0; i<9; i++){
-            cartes_j1 = this.plateau.get_section(i).getCarte_j1();
-            cartes_j2 = this.plateau.get_section(i).getCarte_j2();
-            borne = this.plateau.get_section(i).getBorne();
-            System.out.println(Arrays.toString(cartes_j1) + " || " + borne + " || " + Arrays.toString(cartes_j2));
-        }
+        afficherPlateau();
 
         Carte[] main = j.getMain();
-        System.out.println("Votre main :");
+        System.out.println("\n📚 Votre main :");
+        System.out.println("┌────────┬────────┬────────┬────────┬────────┬────────┐");
+        System.out.println("│ Idx 0  │ Idx 1  │ Idx 2  │ Idx 3  │ Idx 4  │ Idx 5  │");
+        System.out.println("├────────┼────────┼────────┼────────┼────────┼────────┤");
+        
+        StringBuilder ligne1 = new StringBuilder("│");
         for (int i = 0; i < main.length; i++) {
-            System.out.println(i + " : " + main[i]);
+            if (main[i] != null) {
+                String valeur = String.valueOf(main[i].get_valeur());
+                String symbole = getSymbole(main[i].get_couleur());
+                ligne1.append(String.format(" %-5s │", valeur + symbole));
+            } else {
+                ligne1.append("   -   │");
+            }
         }
+        System.out.println(ligne1.toString());
+        System.out.println("└────────┴────────┴────────┴────────┴────────┴────────┘");
 
         int indexCarte;
         int indexSection;
@@ -209,10 +214,99 @@ public class Jeu {
             System.out.println("   ✓ Points gagnés : +3");
         }
         
+        System.out.println("\n📋 PLATEAU FINAL :");
+        afficherPlateau();
+        
         System.out.println("\n📈 Scores finaux :");
         System.out.println("   " + joueurs[0].getNom() + " : " + joueurs[0].getScore() + " points");
         System.out.println("   " + joueurs[1].getNom() + " : " + joueurs[1].getScore() + " points");
         
         System.out.println("\n══════════════════════════════════════════════════════════════════\n");
+    }
+    
+    /**
+     * Affiche le plateau de jeu de manière formatée avec largeurs fixes
+     */
+    private void afficherPlateau() {
+        System.out.println("\n┌────┬──────────────────┬──────────┬──────────────────┐");
+        System.out.println("│Sec │   Joueur 1       │   Borne  │   Joueur 2       │");
+        System.out.println("├────┼──────────────────┼──────────┼──────────────────┤");
+        
+        for (int i = 0; i < 9; i++) {
+            Section section = plateau.get_section(i);
+            Carte[] cartes_j1 = section.getCarte_j1();
+            Carte[] cartes_j2 = section.getCarte_j2();
+            Boolean borne = section.getBorne();
+            int controle = section.calculer_force();
+            
+            // Formater les cartes
+            String cartes1Str = formatterCartesDetaillees(cartes_j1);
+            String cartes2Str = formatterCartesDetaillees(cartes_j2);
+            String borneStr = afficherBorne(borne, controle);
+            
+            // Padding exactement 16 caractères pour les cartes
+            cartes1Str = String.format("%-16s", cartes1Str);
+            cartes2Str = String.format("%-16s", cartes2Str);
+            
+            System.out.printf("│ %d  │%s│%s│%s│\n", 
+                i, cartes1Str, borneStr, cartes2Str);
+        }
+        
+        System.out.println("└────┴──────────────────┴──────────┴──────────────────┘");
+    }
+    
+    /**
+     * Formate les cartes de manière détaillée pour l'affichage avec espace fixe
+     */
+    private String formatterCartesDetaillees(Carte[] cartes) {
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < cartes.length; i++) {
+            if (cartes[i] != null) {
+                String valeur = String.valueOf(cartes[i].get_valeur());
+                String symbole = getSymbole(cartes[i].get_couleur());
+                sb.append(valeur).append(symbole);
+                if (i < 2) sb.append(" ");
+            } else {
+                sb.append("-");
+                if (i < 2) sb.append(" ");
+            }
+        }
+        
+        return sb.toString();
+    }
+    
+    /**
+     * Retourne le symbole de la couleur
+     */
+    private String getSymbole(String couleur) {
+        switch (couleur.toLowerCase()) {
+            case "rouge": return "♥";
+            case "bleu": return "♠";
+            case "vert": return "♣";
+            case "jaune": return "♦";
+            case "violet": return "★";
+            case "orange": return "●";
+            default: return "?";
+        }
+    }
+    
+    /**
+     * Affiche la borne avec le contrôle
+     */
+    private String afficherBorne(Boolean borne, int controle) {
+        if (!borne) {
+            // Borne contrôlée
+            if (controle == 1) {
+                return " J1 👑 ";
+            } else if (controle == 2) {
+                return " 👑 J2 ";
+            } else {
+                return "  ⚔   ";
+            }
+        } else {
+            // Borne neutre
+            return "  ⚔   ";
+        }
     }
 }
